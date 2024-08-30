@@ -2,23 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Add Product</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>Add Product</h1>
-<form action="#" th:action="@{/products/add}" th:object="${productDto}" method="post">
-    <label for="name">Name:</label>
-    <input type="text" id="name" th:field="*{name}" /><br/>
+<div class="container mt-5">
+    <h1 class="mb-4">Add Product</h1>
+    <form action="#" th:action="@{/products/add}" th:object="${productDto}" method="post">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}" />
+        </div>
 
-    <label for="price">Price:</label>
-    <input type="number" id="price" th:field="*{price}" /><br/>
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" class="form-control" id="price" th:field="*{price}" />
+        </div>
 
-    <label for="quantity">Quantity:</label>
-    <input type="number" id="quantity" th:field="*{quantity}" /><br/>
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="number" class="form-control" id="quantity" th:field="*{quantity}" />
+        </div>
 
-    <label for="country">Country:</label>
-    <input type="text" id="country" th:field="*{country}" /><br/>
+        <div class="form-group">
+            <label for="country">Country:</label>
+            <input type="text" class="form-control" id="country" th:field="*{country}" />
+        </div>
 
-    <button type="submit">Add Product</button>
-</form>
+        <button type="submit" class="btn btn-primary">Add Product</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
