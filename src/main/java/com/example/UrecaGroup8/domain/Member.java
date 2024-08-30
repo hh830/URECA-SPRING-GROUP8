@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,4 +26,17 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MemberAddress> addresses=new ArrayList<>();
+
+    public void setAddresses(MemberAddress address) {
+        this.addresses.add(address);
+    }
+
+    public Member(String email, String name, String password, String phone, char gender, String role) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.phone = phone;
+        this.gender = gender;
+        this.role = role;
+    }
 }
