@@ -21,10 +21,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void saveProduct(ProductDto productDto) {
         Product product = new Product(
-                null,  // ID는 보통 데이터베이스에 의해 자동 생성됩니다.
+                null,  // ID는 데이터베이스에 의해 자동 생성됩니다.
                 productDto.getName(),
                 productDto.getPrice(),
-                productDto.getQuantity(),
+                productDto.getQuantity() != null ? productDto.getQuantity() : 0, // quantity가 null인 경우 0으로 설정
                 productDto.getCountry()
         );
         productRepository.save(product);
