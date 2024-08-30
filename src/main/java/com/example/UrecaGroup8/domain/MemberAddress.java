@@ -17,6 +17,8 @@ public class MemberAddress {
 
     private String addr1;
     private String addr2;
+
+    @Column(name = "zip_code")
     private String zipCode;
 
     @ManyToOne(fetch = FetchType.LAZY)

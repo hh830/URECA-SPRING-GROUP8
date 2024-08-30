@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>상품 상세 화면</title>
+  <!-- Bootstrap CSS 추가 -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Product Detail</h1>
+  <div class="card">
+    <div class="card-body">
+      <p>상품 이름: <span id="productName"></span></p>
+      <p>상품 가격: <span id="productPrice"></span></p>
+      <p>나라: <span id="productCountry"></span></p>
+      <p>남은 수량: <span id="productQuantity"></span></p>
+
+      <div class="form-group">
+        <label for="quantity">사용자 주문 수량:</label>
+        <input type="number" class="form-control" id="quantity" min="1" value="1">
+      </div>
+      <button class="btn btn-success" onclick="orderProduct()">주문하기</button>
+      <a href="product.html" class="btn btn-secondary">상품 페이지</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('productId');
+
+    fetch(`/product/list/${productId}`)
+            .then(response => response.json())
+            .then(product => {
+              document.getElementById('productName').textContent = product.name;
+              document.getElementById('productPrice').textContent = `$${product.price.toFixed(2)}`;
+              document.getElementById('productCountry').textContent = product.country;
+              document.getElementById('productQuantity').textContent = product.quantity;
+            })
+            .catch(error => console.error('fetch 오류 : ', error));
+  });
+
+  function orderProduct() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('productId');
+    const quantity = document.getElementById('quantity').value;
+    const currentDate = new Date();
+
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+
+    const formattedDate = `${year}-${month}-${day}`;
+
+    fetch('/orders/save', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userId: 1,
+        productId: productId,
+        quantity: quantity,
+        orderDate: formattedDate
+      })
+    })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('주문 실패');
+              }
+              return response.json();
+            })
+            .then(data => {
+              alert('주문 성공');
+              window.location.href = 'order.html';
+            })
+            .catch(error => {
+              console.error('주문 오류:', error);
+              alert('주문 오류');
+            });
+  }
+</script>
+<!-- Bootstrap JS, Popper.js, jQuery 추가 -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

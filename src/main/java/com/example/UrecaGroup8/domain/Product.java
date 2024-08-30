@@ -19,4 +19,8 @@ public class Product {
     private int price;
     private String country;
     private String name;
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }
