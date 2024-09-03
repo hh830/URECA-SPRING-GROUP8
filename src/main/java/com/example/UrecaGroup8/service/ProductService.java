@@ -1,11 +1,7 @@
 package com.example.UrecaGroup8.service;
 
-import com.example.UrecaGroup8.domain.Product;
-import com.example.UrecaGroup8.domain.dto.ProductDto;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
-
-public interface ProductService {
-    void saveProduct(ProductDto productDto);
-    List<Product> getAllProducts();
+@Service
+public class ProductService {
 }
